@@ -5,7 +5,7 @@ fn main() {
     let opts = Opts::parse();
     match opts.cmd {
         SubCommand::Csv(opts) => {
-            println!("{:?}", opts);
+            println!("{opts:?}");
         }
     }
 }
