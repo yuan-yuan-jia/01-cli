@@ -1,3 +1,11 @@
+use clap::Parser;
+use rcli::{Opts, SubCommand};
+
 fn main() {
-    println!("Hello, world!");
+    let opts = Opts::parse();
+    match opts.cmd {
+        SubCommand::Csv(opts) => {
+            println!("{:?}", opts);
+        }
+    }
 }
