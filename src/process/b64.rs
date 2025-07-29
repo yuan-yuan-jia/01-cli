@@ -14,7 +14,7 @@ pub fn process_encode(input: &str, format: Base64Format) -> anyhow::Result<()> {
         Base64Format::Standard => STANDARD.encode(&buf),
         Base64Format::UrlSafe => URL_SAFE_NO_PAD.encode(&buf),
     };
-    println!("{}", encoded);
+    println!("{encoded}");
     Ok(())
 }
 
@@ -29,7 +29,7 @@ pub fn process_decode(input: &str, format: Base64Format) -> anyhow::Result<()> {
         Base64Format::UrlSafe => URL_SAFE_NO_PAD.decode(buf)?,
     };
     let decoded = String::from_utf8(decoded)?;
-    println!("{}", decoded);
+    println!("{decoded}");
     Ok(())
 }
 
