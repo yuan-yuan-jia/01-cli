@@ -33,12 +33,12 @@ fn main() -> anyhow::Result<()> {
             Base64SubCommand::Encode(opts) => {
                 let mut reader = get_reader(&opts.input)?;
                 let ret = process_encode(&mut reader, opts.format)?;
-                println!("{}", ret);
+                println!("{ret}");
             }
             Base64SubCommand::Decode(opts) => {
                 let mut reader = get_reader(&opts.input)?;
                 let ret = process_decode(&mut reader, opts.format)?;
-                println!("{}", ret);
+                println!("{ret}");
             }
         },
         SubCommand::Text(text_sub_command) => match text_sub_command {
