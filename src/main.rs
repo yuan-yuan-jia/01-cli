@@ -2,11 +2,13 @@ use base64::{prelude::BASE64_URL_SAFE_NO_PAD, Engine};
 use clap::Parser;
 use rcli::{
     get_content, get_reader, process_csv, process_decode, process_encode, process_genpass,
-    process_text_key_generate, process_text_sign, process_text_verify, Base64SubCommand, Opts,
-    SubCommand,
+    process_http_serve, process_text_key_generate, process_text_sign, process_text_verify,
+    Base64SubCommand, Opts, SubCommand,
 };
 
-fn main() -> anyhow::Result<()> {
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    tracing_subscriber::fmt::init();
     let opts = Opts::parse();
     match opts.cmd {
         SubCommand::Csv(opts) => {
@@ -65,6 +67,11 @@ fn main() -> anyhow::Result<()> {
                 for (k, v) in key {
                     std::fs::write(opts.output_path.join(k), v)?;
                 }
+            }
+        },
+        SubCommand::Http(http_sub_command) => match http_sub_command {
+            rcli::HttpSubCommand::Serve(opts) => {
+                process_http_serve(opts.dir.clone(), opts.port).await?;
             }
         },
     }
