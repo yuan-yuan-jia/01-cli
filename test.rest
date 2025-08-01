@@ -1,3 +1,7 @@
 ### Test index page
 
 GET http://localhost:8080/Cargo.toml
+
+### Test tower-http
+
+GET http://localhost:8080/tower/assets
