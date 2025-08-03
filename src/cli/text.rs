@@ -54,7 +54,7 @@ impl CmdExecutor for TextSignOpts {
         let sig = process_text_sign(&mut reader, &key, self.format)?;
         // base64 output
         let encoded = BASE64_URL_SAFE_NO_PAD.encode(sig);
-        println!("{}", encoded);
+        println!("{encoded}");
         Ok(())
     }
 }
