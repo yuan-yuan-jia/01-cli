@@ -7,8 +7,10 @@ use crate::{
 };
 use base64::{prelude::BASE64_URL_SAFE_NO_PAD, Engine};
 use clap::Parser;
+use enum_dispatch::enum_dispatch;
 
 #[derive(Debug, Parser)]
+#[enum_dispatch(CmdExecutor)]
 pub enum TextSubCommand {
     #[command(
         name = "sign",
@@ -25,16 +27,6 @@ pub enum TextSubCommand {
         about = "generate a random blake3 key or ed25519 key pair"
     )]
     Generate(KeyGenerateOpts),
-}
-
-impl CmdExecutor for TextSubCommand {
-    async fn execute(self) -> anyhow::Result<()> {
-        match self {
-            TextSubCommand::Sign(opts) => opts.execute().await,
-            TextSubCommand::Verify(opts) => opts.execute().await,
-            TextSubCommand::Generate(opts) => opts.execute().await,
-        }
-    }
 }
 
 #[derive(Debug, Parser)]
